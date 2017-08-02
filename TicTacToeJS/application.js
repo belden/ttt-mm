@@ -52,7 +52,7 @@ init();
 render();
 
 function changeThePlayer() {
-	currentPlayer = currentPlayer === 'X' ? 'Y' : 'X';
+	currentPlayer = currentPlayer === 'X' ? '0' : 'X';
 }
 
 function init() {

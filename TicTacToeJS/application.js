@@ -79,6 +79,13 @@ function init() {
 
 function render() {
 	$('.cell').each(function (cell) {
+		let state = $(this).data('cell').state;
+
+		if (state) {
+			$(this).text(state);
+			$(this).css('background-color', state === 'X' ? 'green' : 'LemonChiffon ');
+		}
+		
 		$(this).text($(this).data('cell').state);
 	});
 }
@@ -87,6 +94,4 @@ function render() {
 function showTheWinner(winner) {
 	$('#winner').text(winner);
 	$('#winnerContainer').show();
-
-
 }

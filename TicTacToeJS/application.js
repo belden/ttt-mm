@@ -56,9 +56,11 @@ function init() {
 			if ($(this).data('cell').setState(currentPlayer)) {
 				changeThePlayer();
 				render();
-				let result = game.whoWins();
+				let winner = game.whoWins();
+				if (winner) {
+					showTheWinner(winner);
+				}
 			}
-
 		});
 	});
 
@@ -68,4 +70,12 @@ function render() {
 	$('.cell').each(function (cell) {
 		$(this).text($(this).data('cell').state);
 	});
+}
+
+
+function showTheWinner(winner) {
+	$('#winner').text(winner);
+	$('#winnerContainer').show();
+
+
 }

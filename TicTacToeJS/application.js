@@ -1,6 +1,3 @@
-var currentPlayer = 'X';
-
-
 class Cell {
 	constructor() {
 		this.state = null;
@@ -16,8 +13,34 @@ class Cell {
 	}
 }
 
+class Game {
+	constructor() {
+		this.cells = [];
+		for (let i = 0; i < 9; i++) {
+			this.cells.push(new Cell());
+		}
 
+		this.winsPatterns = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [6, 4, 2]];
 
+	}
+
+	whoWins() {
+		for (let i = 0; i < this.winsPatterns.length; i++) {
+			let pattern = this.winsPatterns[i];
+			if (this.cells[pattern[0]].state &&
+				this.cells[pattern[0]].state === this.cells[pattern[1]].state &&
+				this.cells[pattern[0]].state === this.cells[pattern[2]].state){
+				return this.cells[pattern[0]].state;
+			}
+		}
+
+		return false;
+	}
+
+}
+
+let currentPlayer = 'X';
+let game = new Game();
 
 init();
 render();
@@ -27,12 +50,13 @@ function changeThePlayer() {
 }
 
 function init() {
-	$('.cell').each(function (cell) {
-		$(this).data('cell', new Cell());
+	$('.cell').each(function ( index ) {
+		$(this).data('cell', game.cells[index]);
 		$(this).click(function () {
 			if ($(this).data('cell').setState(currentPlayer)) {
 				changeThePlayer();
 				render();
+				let result = game.whoWins();
 			}
 
 		});
